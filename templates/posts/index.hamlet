@@ -5,4 +5,4 @@
     $forall Entity id post <- allPosts
       <h4>
         <li>
-          <a href=@{PostDetailsR id}>#{blogPostTitle post}
+          <a href=@{PostDetailsR id}>#{blogPostPostdate post} #{blogPostTitle post}

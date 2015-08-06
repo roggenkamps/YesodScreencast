@@ -1,4 +1,4 @@
 <h1>#{blogPostTitle blogPost}
-
+<p>Posted #{blogPostPostdate blogPost}
 <article .jumbotron>
   #{blogPostArticle blogPost}

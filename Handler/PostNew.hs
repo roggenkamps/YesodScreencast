@@ -4,9 +4,17 @@ import Import
 import Yesod.Form.Bootstrap3
 import Yesod.Text.Markdown
 
+data BlogPost = BlogPost
+    { title    :: Text
+    , postdate :: Day
+    , article  :: Text
+    }
+  deriving Show
+
 blogPostForm :: AForm Handler BlogPost
 blogPostForm = BlogPost 
-            <$> areq textField (bfs ("Title" :: Text)) Nothing
+            <$> areq textField     (bfs ("Title" :: Text)) Nothing
+            <*> areq dayField      (bfs ("Posted" :: Day)) Nothing
             <*> areq markdownField (bfs ("Article" :: Text)) Nothing
 
 getPostNewR :: Handler Html
