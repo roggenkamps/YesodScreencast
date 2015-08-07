@@ -4,13 +4,6 @@ import Import
 import Yesod.Form.Bootstrap3
 import Yesod.Text.Markdown
 
-data BlogPost = BlogPost
-    { title    :: Text
-    , postdate :: Day
-    , article  :: Text
-    }
-  deriving Show
-
 blogPostForm :: AForm Handler BlogPost
 blogPostForm = BlogPost 
             <$> areq textField     (bfs ("Title" :: Text)) Nothing
@@ -22,6 +15,8 @@ getPostNewR = do
     (widget, enctype) <- generateFormPost $ renderBootstrap3 BootstrapBasicForm blogPostForm
     defaultLayout $ do
         $(widgetFile "posts/new")
+
+-- YesodPersist master => YesodPersistBackend master ~ SqlBackend => …
 
 postPostNewR :: Handler Html
 postPostNewR = do
