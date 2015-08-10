@@ -10,7 +10,8 @@ Email
     UniqueEmail email
 
 BlogPost
-    title Text
+    title    Text
     postdate Day
-    article Markdown
+    article  Markdown
  -- By default this file is used in Model.hs (which is imported by Foundation.hs)
+

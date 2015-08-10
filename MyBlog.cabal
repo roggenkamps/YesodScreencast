@@ -83,6 +83,7 @@ library
                  , time
                  , markdown
                  , yesod-text-markdown
+                 , blaze-markup
 
 executable         MyBlog
     if flag(library-only)
@@ -118,7 +119,7 @@ test-suite test
 
     build-depends: base
                  , MyBlog
-                 , yesod-test >= 1.4.2 && < 1.5
+--                 , yesod-test >= 1.4.2 && < 1.5
                  , yesod-core
                  , yesod
                  , persistent
@@ -126,6 +127,6 @@ test-suite test
                  , resourcet
                  , monad-logger
                  , transformers
-                 , hspec
+--                 , hspec
                  , classy-prelude
                  , classy-prelude-yesod
