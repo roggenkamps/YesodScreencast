@@ -3,17 +3,17 @@ module Handler.PostNew where
 import Import
 import Yesod.Form.Bootstrap3
 import Yesod.Text.Markdown
-import Text.Blaze (ToMarkup (toMarkup))
+import Text.Blaze
+import Data.Time (UTCTime, getCurrentTime)
+import Data.Typeable (Typeable)
 
-
-
--- instance ToHtml Day where
---    toHtml = 
+instance ToMarkup UTCTime where
+   toHtml = text $ show
 
 blogPostForm :: AForm Handler BlogPost
 blogPostForm = BlogPost 
             <$> areq textField     (bfs ("Title" :: Text)) Nothing
-            <*> lift (liftIO getCurrentDate)
+            <*> lift (liftIO getCurrentTime)
             <*> areq markdownField (bfs ("Article" :: Text)) Nothing
 
 getPostNewR :: Handler Html
