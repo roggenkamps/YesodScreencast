@@ -10,10 +10,15 @@ import Data.Typeable (Typeable)
 instance ToMarkup UTCTime where
    toHtml = text $ show
 
+data BlogForm = BlogForm {
+    title :: Text
+    article :: Textarea
+  }
+  deriving Show
+
 blogPostForm :: AForm Handler BlogPost
 blogPostForm = BlogPost 
             <$> areq textField     (bfs ("Title" :: Text)) Nothing
-            <*> lift (liftIO getCurrentTime)
             <*> areq markdownField (bfs ("Article" :: Text)) Nothing
 
 getPostNewR :: Handler Html
@@ -24,9 +29,11 @@ getPostNewR = do
 
 -- YesodPersist master => YesodPersistBackend master ~ SqlBackend => …
 
-postPostNewR :: Handler Html
+postPostNewR :: Handler RepHtml
 postPostNewR = do
-    ((res, widget), enctype) <- runFormPost $ renderBootstrap3 BootstrapBasicForm blogPostForm
+    articleForm  <- runFormPost $ renderBootstrap3 BootstrapBasicForm blogPostForm
+    postTime     <- liftIO getCurrentTime
+    
     case res of
       FormSuccess blogPost -> do
               blogPostId <- runDB $ insert blogPost
